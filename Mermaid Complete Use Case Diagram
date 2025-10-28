@@ -1,0 +1,93 @@
+%%{ init : { "theme" : "default", "flowchart" : { "curve" : "linear" }}}%%
+%%                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+graph TD
+   subgraph actors
+       A((User))
+       B((Authentication
+       Service))
+       C((Attraction
+       Database))
+       D((Mapping API))
+       E((Verified
+       Business
+       Rep))
+       F((New User))
+   end
+
+
+subgraph User Database
+       U1[Create User]
+       U10[Log User
+       Demographics/Interests]
+       U5[Save/Bookmark Attraction]
+end
+
+
+subgraph Recommender
+       U7[Search for Attractions]
+       U2[Filter by
+       Distance]
+       U3[Filter by Rating]
+       U4[Apply Accessibility Filters]
+end
+
+
+subgraph Attraction Database
+    U6[View Details]
+end
+     
+subgraph Web App
+       U8[Rate/Review]
+       U9[View Reviews and Ratings]
+end
+
+
+A --> U2
+A --> U3
+A --> U4
+A --> U5
+A --> U6
+A --> U7
+A --> U8
+A --> U9
+
+
+B --> U1
+
+
+C --> U2
+C --> U3
+C --> U4
+C --> U5
+C --> U6
+C --> U7
+C --> U8
+C --> U9
+       
+D --> U2
+
+
+E --> U9
+
+
+F --> U1
+F --> U10
+
+
+U1 -.->|include| U10
+U2 -.->|extend| U6
+U2 -.->|include| U7
+U3 -.->|extend| U7
+U5 -.->|extend| U6
+U6 -.->|extend| U8
+U6 -.->|extend| U9
+U7 -.->|extend| U2
+U7 -.->|extend| U3
+U7 -.->|extend| U4
+U8 -.->|extend| U3
+U8 -.->|extend| U9
+U9 -.->|extend| U8
+U10 -.->|extend| U1
+U10 -.->|extend| U7
