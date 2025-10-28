@@ -1,0 +1,25 @@
+sequenceDiagram
+title Critical Use Case 3: Filter Attractions by Distance
+actor User
+      
+box Attraction Recommendation System
+       participant WebApp
+       participant FilteringService
+       participant MuseumDatabase
+end
+
+
+       User->>WebApp: Open App and Set Distance of 50 Miles
+       activate WebApp
+       WebApp->>FilteringService: Sends User Location and Range(location, distance)
+       activate FilteringService
+       FilteringService->>MuseumDatabase: Requests all attraction details in region
+       activate MuseumDatabase
+       MuseumDatabase-->>FilteringService: Return attraction list ([attraction])
+       deactivate MuseumDatabase
+       FilteringService->>FilteringService: Calculate each distance
+       FilteringService->>FilteringService: Remove attractions not within range
+       FilteringService-->>WebApp: Return results
+       deactivate FilteringService
+       WebApp-->>User: Show results to user
+       deactivate WebApp
