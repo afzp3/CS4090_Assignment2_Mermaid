@@ -1,0 +1,31 @@
+sequenceDiagram
+ title Sequence Diagram 4: Alternative Obtain Recommendations Flow
+ actor User
+ box Attraction Recommendation System
+   participant WebApp
+   participant Profile
+   participant UserDatabase
+   participant Recommender
+   participant MuseumDatabase
+ end
+
+
+User->>WebApp: Open app and edits preferences
+activate WebApp
+WebApp->>Profile: Send updated preference
+activate Profile
+Profile->>UserDatabase: Update the user record
+activate UserDatabase
+UserDatabase-->>Profile: Profile saved successfully
+deactivate Profile
+deactivate UserDatabase
+WebApp->>Recommender: Request new matching recommendations
+Recommender->>MuseumDatabase: Fetch matching attractions
+activate MuseumDatabase
+MuseumDatabase-->>Recommender: Return new list of matching attractions
+deactivate MuseumDatabase
+activate Recommender
+Recommender-->>WebApp: Send updated recommendations
+deactivate Recommender
+WebApp-->>User: Display new attraction suggestions
+deactivate WebApp
