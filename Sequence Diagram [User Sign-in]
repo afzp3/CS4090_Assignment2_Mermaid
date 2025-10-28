@@ -1,0 +1,20 @@
+sequenceDiagram
+ title Sequence Diagram 1: User Sign-in
+ actor User
+ box Attraction Recommendation System
+   participant WebApp
+   participant Authentication
+   participant UserDatabase
+ end
+ User->>WebApp: Submits login details
+ Activate WebApp
+ WebApp->>Authentication: Validates User
+ Activate Authentication
+ Authentication->>UserDatabase: Queries for User
+ Activate UserDatabase
+ UserDatabase-->>Authentication: Sends User Details Back(Username, Password)
+ Deactivate UserDatabase
+ Authentication-->>WebApp: Confirms user is Valid(UserValid)
+ Deactivate Authentication
+ WebApp->>User: Display successful login
+ Deactivate WebApp
