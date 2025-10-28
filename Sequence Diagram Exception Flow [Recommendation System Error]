@@ -1,0 +1,20 @@
+sequenceDiagram
+title Exception Flow: Recommendation Service Error
+   actor User
+   box Museum Recommendation System
+       participant WebApp
+       participant Recommender
+       participant UserDatabase
+       participant MuseumDatabase
+   end
+
+
+   User->>WebApp: User opens app and request recs
+   activate WebApp
+   WebApp->>Recommender: Fetch Recommendations
+   activate Recommender
+   note right of Recommender: Recommender Failure - Unavailable
+   Recommender-->>WebApp: Error and No Response returned
+   deactivate Recommender
+   WebApp-->>User: Shows "Error: Service Unavailable"
+   deactivate WebApp
