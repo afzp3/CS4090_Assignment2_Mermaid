@@ -1,0 +1,27 @@
+sequenceDiagram
+title Critical User Case 2: Obtain Recommendations
+   actor User
+   box Museum Recommendation System
+       participant WebApp
+       participant Recommender
+       participant UserDatabase
+       participant MuseumDatabase
+   end
+
+
+   User->>WebApp: User opens app and request recs
+   activate WebApp
+   WebApp->>Recommender: Fetch Recommendations
+   activate Recommender
+   Recommender->>UserDatabase: Check User Interests
+   activate UserDatabase
+   UserDatabase-->>Recommender: Return User Interests([UserInterests])
+   deactivate UserDatabase
+   Recommender->>MuseumDatabase: Query Attractions by User Interest
+   activate MuseumDatabase
+   MuseumDatabase-->>Recommender: Return Matching Attractions ([Attractions])
+   deactivate MuseumDatabase
+   Recommender-->>WebApp: Return recommendations
+   deactivate Recommender
+   WebApp-->>User: Display recommendations to user
+   deactivate WebApp
